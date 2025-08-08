@@ -11,12 +11,12 @@ load_dotenv()
 # (like secrets or API keys) stored in our enviroment.
 # It also allows us to access variables defined 
 # in the .env file securely.
-PI_key = os.getenv("WEATHER_API_KEY") # API_KEY = 1232435
+API_key = os.getenv("WEATHER_API_KEY") # API_KEY = 1232435
 
 
 def get_weather(city):
     # prepare the url with city and API KKey
-    url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={API_key}"
+    url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={API_key}&appid={API_key}&units=metric"
 
 
     response = requests.get(url) # sends a GET request to the API
@@ -30,10 +30,11 @@ def get_weather(city):
     data = response.json()
 
     # lets extract relevant fields and return as dictnary
-    return {
-        "name": data["name"],
-        "temperature": data["main"]["temp"],
-        "condition": data["weather"][0]["description"] 
-    }
+
+    name = data["name"]
+    temperature = data["main"]["temp"]
+    condition = data["weather"][0]["description"] 
+
+    print(f"The weather in {name} city is {temperature}°C with {condition}")
 
 
